@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
@@ -50,9 +50,7 @@ export default function Hero() {
       {/* Gradient background */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-primary/5 rounded-full blur-3xl -z-10"></div>
 
-      <motion.div
-        className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
-      >
+      <motion.div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Content Column */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
