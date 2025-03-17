@@ -1,141 +1,188 @@
 'use client';
-import { WordPullUp } from '@/components/ui/word-pull-up';
-import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight, Facebook, Github, Linkedin, Mail } from 'lucide-react';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
 
-const skills = [
-  'React',
-  'Next.js',
-  'TypeScript',
-  'Tailwind CSS',
-  'GraphQL',
-  'Node.js',
-];
+import { motion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
+import { useRef, useState } from 'react';
+
+import chinh from '@/assets/imgs/chinh.jpg';
+import { WordPullUp } from '@/components/ui/word-pull-up';
+import ContactList from './contact-list';
+import Skill from './skill';
 
 export default function Hero() {
-  const [currentSkillIndex, setCurrentSkillIndex] = useState(0);
+  const containerRef = useRef<HTMLElement>(null);
+  // 3D tilt effect for image
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSkillIndex(prevIndex => (prevIndex + 1) % skills.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const card = document.getElementById('profile-image');
+    if (!card) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateXValue = (y - centerY) / 20;
+    const rotateYValue = (centerX - x) / 20;
+
+    setRotateX(rotateXValue);
+    setRotateY(rotateYValue);
+  };
+
+  const resetRotation = () => {
+    setRotateX(0);
+    setRotateY(0);
+  };
 
   return (
     <section
-      className="flex items-start container text-gray-900 dark:text-gray-100"
+      ref={containerRef}
+      className="relative mt-[-88px] flex flex-col justify-center py-16 md:py-24 container"
       id="introduction"
     >
-      <div className="">
+      {/* Grid pattern overlay */}
+      <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-center opacity-[0.02] -z-10"></div>
+
+      {/* Gradient background */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-primary/5 rounded-full blur-3xl -z-10"></div>
+
+      <motion.div
+        className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+      >
+        {/* Content Column */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="order-2 lg:order-1 pt-4"
         >
-          <div className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6">
+          <div className="inline-flex items-center px-4 py-1.5 mb-6 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
+            <span className="animate-pulse mr-2 text-primary">●</span>
+            Available for freelance work
+          </div>
+
+          <div className="text-4xl sm:text-5xl lg:text-6xl font-bold my-6">
             <div>
-              <WordPullUp words="Xin chào !" />
+              <WordPullUp words="Hey there !" className="text-primary" />
             </div>
-            <div>
-              <span className="">
-                <WordPullUp words="Tôi là" />
-                <WordPullUp
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-gray-600 to-gray-900 dark:from-gray-400 dark:to-gray-100"
-                  words="Frontend Developer"
-                />
-              </span>
+            <div className="mt-4 flex flex-col gap-2">
+              <WordPullUp words="I'm Lam Dien Chinh" />
+              <WordPullUp
+                className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 to-purple-600 dark:from-primary dark:via-blue-400 dark:to-purple-500"
+                words="Frontend Developer"
+              />
             </div>
           </div>
-          <p className="text-xl sm:text-2xl mb-8 text-gray-700 dark:text-gray-300 leading-relaxed max-w-2xl">
-            Chuyên tạo ra những trải nghiệm web đột phá với
-          </p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.8 }}
+            className="text-lg sm:text-xl mb-8 text-muted-foreground leading-relaxed"
+          >
+            Crafting <span className="text-primary font-medium">beautiful</span>{' '}
+            & <span className="text-blue-500 font-medium">intuitive</span>{' '}
+            digital experiences with modern web technologies.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1 }}
+            className="mt-8"
+          >
+            <ContactList />
+          </motion.div>
         </motion.div>
 
+        {/* Image Column */}
         <motion.div
-          className="text-3xl md:text-4xl font-bold mb-12 h-12 overflow-hidden"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.3,
+            type: 'spring',
+            stiffness: 100,
+          }}
+          className="relative flex justify-center order-1 lg:order-2"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={resetRotation}
         >
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={currentSkillIndex}
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -50, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="inline-block text-gray-800 dark:text-white"
-            >
-              {skills[currentSkillIndex]}
-            </motion.span>
-          </AnimatePresence>
-        </motion.div>
+          {/* Decorative elements */}
+          <div className="absolute -inset-4 bg-gradient-to-r from-primary/40 to-purple-600/40 rounded-full opacity-70 blur-2xl animate-pulse -z-10"></div>
 
-        <motion.div
-          className="flex flex-col sm:flex-row gap-4 mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
-          <Link
-            href="/projects"
-            className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 transition duration-150 ease-in-out"
+          {/* Image with 3D effect */}
+          <div
+            id="profile-image"
+            className="relative bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-800 dark:to-gray-900 p-1.5 rounded-full shadow-xl"
+            style={{
+              transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+              transition: 'transform 0.1s ease-out',
+              maxWidth: 'min(100%, 400px)',
+            }}
           >
-            Xem Dự Án <ArrowRight className="ml-2 h-5 w-5" />
-          </Link>
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150 ease-in-out"
-          >
-            Liên Hệ
-          </Link>
-        </motion.div>
+            <div className="overflow-hidden rounded-full">
+              <Image
+                className="aspect-square object-cover"
+                src={chinh}
+                alt="Chinh"
+                priority
+                width={400}
+                height={400}
+              />
+            </div>
 
-        <motion.div
-          className="flex gap-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        >
-          <a
-            href="https://www.facebook.com/profile.php?id=100011284771532&locale=vi_VN"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition duration-150 ease-in-out"
-          >
-            <Facebook className="w-6 h-6" />
-            <span className="sr-only">Facebook</span>
-          </a>
-          <a
-            href="https://github.com/lamdienchinh"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition duration-150 ease-in-out"
-          >
-            <Github className="w-6 h-6" />
-            <span className="sr-only">GitHub</span>
-          </a>
-          <a
-            href="https://linkedin.com/in/lamdienchinh"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition duration-150 ease-in-out"
-          >
-            <Linkedin className="w-6 h-6" />
-            <span className="sr-only">LinkedIn</span>
-          </a>
-          <a
-            href="mailto:lamdienchinhtd9a2@example.com"
-            className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition duration-150 ease-in-out"
-          >
-            <Mail className="w-6 h-6" />
-            <span className="sr-only">Email</span>
-          </a>
+            {/* Decorative circles - simplified and more subtle */}
+            <motion.div
+              className="absolute top-5 -right-4 w-6 h-6 bg-blue-500/80 rounded-full"
+              animate={{ y: [0, 8, 0] }}
+              transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+            />
+            <motion.div
+              className="absolute -bottom-2 right-10 w-4 h-4 bg-purple-500/80 rounded-full"
+              animate={{ y: [0, -8, 0] }}
+              transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+            />
+            <motion.div
+              className="absolute -left-4 top-1/2 w-8 h-8 bg-primary/80 rounded-full"
+              animate={{ y: [0, 10, 0] }}
+              transition={{
+                repeat: Infinity,
+                duration: 3.5,
+                ease: 'easeInOut',
+              }}
+            />
+
+            {/* Status indicator */}
+            <div className="absolute bottom-10 -right-4 bg-card rounded-full p-2 shadow-md border border-border">
+              <div className="flex items-center gap-2 px-3 py-1">
+                <span className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"></span>
+                <span className="text-sm font-medium">Online</span>
+              </div>
+            </div>
+          </div>
         </motion.div>
-      </div>
+      </motion.div>
+
+      {/* Skills Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 1.2 }}
+        className="w-full mt-16 md:mt-24"
+      >
+        <div className="space-y-3">
+          <div className="relative">
+            <div className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
+            <Skill />
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 }

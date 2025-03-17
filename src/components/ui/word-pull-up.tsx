@@ -1,8 +1,8 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import type { Variants } from 'framer-motion';
-import { motion } from 'framer-motion';
+import type { Variants } from 'motion/react';
+import { motion } from 'motion/react';
 
 interface WordPullUpProps {
   words: string;
@@ -35,7 +35,7 @@ export function WordPullUp({
       initial="hidden"
       animate="show"
       className={cn(
-        'font-display text-4xl font-bold tracking-[-0.02em] drop-shadow-sm',
+        'font-display font-bold tracking-[-0.02em] drop-shadow-sm',
         className,
       )}
     >

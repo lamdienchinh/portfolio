@@ -1,41 +1,59 @@
 'use client';
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { MoonIcon, SunIcon } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
 import { useTheme } from 'next-themes';
-import { Button } from '../ui/button';
+import { useEffect, useState } from 'react';
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Prevent hydration issues
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const toggleTheme = () => {
+    if (isAnimating) return;
+
+    setIsAnimating(true);
+    setTimeout(() => {
+      setTheme(theme === 'dark' ? 'light' : 'dark');
+      setIsAnimating(false);
+    }, 300);
+  };
+
+  if (!mounted) {
+    return null;
+  }
+
+  const isDark = theme === 'dark';
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="w-9 px-0">
-          <SunIcon className="h-\[1.2rem\] w-\[1.2rem\] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <MoonIcon className="absolute h-\[1.2rem\] w-\[1.2rem\] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme('light')}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => {
-            console.log('RUN');
-            console.log(theme)
-            setTheme('dark');
-          }}
+    <button
+      onClick={toggleTheme}
+      className="relative flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-300 focus:outline-none"
+      aria-label="Toggle theme"
+      disabled={isAnimating}
+    >
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={isDark ? 'dark' : 'light'}
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          exit={{ scale: 0, rotate: 180 }}
+          transition={{ duration: 0.3 }}
+          className="absolute"
         >
-          Dark
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          {isDark ? (
+            <MoonIcon className="text-yellow-300" />
+          ) : (
+            <SunIcon className="text-orange-500" />
+          )}
+        </motion.div>
+      </AnimatePresence>
+    </button>
   );
 }
