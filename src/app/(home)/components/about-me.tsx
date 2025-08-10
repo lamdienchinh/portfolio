@@ -73,7 +73,7 @@ export default function AboutMe() {
                       <div className="w-1.5 h-8 bg-primary rounded-full mr-2"></div>
                       PROFILE
                     </CardTitle>
-                    <TabsList className="bg-background/80 backdrop-blur-sm p-1 rounded-xl">
+                    <TabsList className="bg-background/80 backdrop-blur-sm p-1 rounded-xl flex-wrap">
                       <TabsTrigger
                         value="about"
                         className="gap-2 rounded-lg data-[state=active]:bg-primary/10 data-[state=active]:text-primary"

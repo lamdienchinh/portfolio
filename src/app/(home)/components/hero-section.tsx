@@ -43,14 +43,9 @@ export default function Hero() {
       className="relative lg:mt-[-80px] flex flex-col justify-center py-16 md:py-24 container"
       id="introduction"
     >
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 bg-center opacity-[0.02] -z-10"></div>
-
-      {/* Gradient background */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-primary/5 rounded-full blur-3xl -z-10"></div>
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-primary/5 rounded-full blur-3xl -z-10" />
 
       <motion.div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        {/* Content Column */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
@@ -111,7 +106,7 @@ export default function Hero() {
           onMouseLeave={resetRotation}
         >
           {/* Decorative elements */}
-          <div className="absolute -inset-4 bg-gradient-to-r from-primary/40 to-purple-600/40 rounded-full opacity-70 blur-2xl animate-pulse -z-10"></div>
+          <div className="absolute -inset-4 bg-gradient-to-r from-primary/40 to-purple-600/40 rounded-full opacity-70 blur-2xl animate-pulse -z-10" />
 
           {/* Image with 3D effect */}
           <div

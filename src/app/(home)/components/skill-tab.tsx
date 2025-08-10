@@ -149,7 +149,7 @@ const skills = [
 export default function SkillTab() {
   return (
     <>
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {skills.map((skill, index) => (
           <motion.div
             key={skill.name}
