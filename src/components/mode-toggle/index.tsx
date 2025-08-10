@@ -43,11 +43,11 @@ export function ModeToggle() {
           key={isDark ? 'dark' : 'light'}
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
-          exit={{ scale: 0, rotate: 180 }}
+          exit={{ scale: 0, rotate: 180 }}  
           transition={{ duration: 0.3 }}
           className="absolute"
         >
-          {isDark ? (
+          {!isDark ? (
             <MoonIcon className="text-yellow-300" />
           ) : (
             <SunIcon className="text-orange-500" />
