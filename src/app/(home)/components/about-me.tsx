@@ -1,14 +1,7 @@
 'use client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import {
-  Award,
-  Briefcase,
-  ChevronRight,
-  GraduationCap,
-  Trophy,
-  User,
-} from 'lucide-react';
+import { Award, Briefcase, GraduationCap, Trophy, User } from 'lucide-react';
 import { motion } from 'motion/react';
 import AboutTab from './about-tab';
 import AchievementTab from './achievement-tab';

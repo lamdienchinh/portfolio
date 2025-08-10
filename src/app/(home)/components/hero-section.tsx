@@ -11,7 +11,6 @@ import Skill from './skill';
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
-  // 3D tilt effect for image
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
 
@@ -41,11 +40,11 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative mt-[-88px] flex flex-col justify-center py-16 md:py-24 container"
+      className="relative lg:mt-[-80px] flex flex-col justify-center py-16 md:py-24 container"
       id="introduction"
     >
       {/* Grid pattern overlay */}
-      <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-center opacity-[0.02] -z-10"></div>
+      <div className="absolute inset-0 bg-center opacity-[0.02] -z-10"></div>
 
       {/* Gradient background */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-primary/5 rounded-full blur-3xl -z-10"></div>

@@ -1,10 +1,14 @@
 import avatar from '@/assets/imgs/avatar.jpg';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 import { Download, GraduationCap, Languages, Mail, MapPin } from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
+
+const CV_URL =
+  'https://drive.google.com/uc?export=download&id=1iUbp1FDhiIiRIMH3iVOicYrhHdDzfwSL';
 
 const languages = [
   { name: 'Vietnamese', level: 'Native', percentage: 100 },
@@ -12,17 +16,6 @@ const languages = [
 ];
 
 export default function Info() {
-  const handleDownloadCV = () => {
-    const link = document.createElement('a');
-    link.href = './LamDienChinh_CV.pdf';
-    link.download = 'LamDienChinh_CV.pdf';
-    document.body.appendChild(link);
-
-    link.click();
-
-    document.body.removeChild(link);
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
@@ -87,17 +80,32 @@ export default function Info() {
             </div>
 
             <div className="flex gap-3 pt-2">
-              <Button
-                size="sm"
-                className="w-full gap-2"
-                onClick={handleDownloadCV}
+              <Link
+                download
+                href={CV_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  buttonVariants({
+                    variant: 'default',
+                    size: 'sm',
+                  }),
+                  'w-full gap-2',
+                )}
               >
                 <Download className="w-4 h-4" /> Resume
-              </Button>
-              <Link className="block w-full" href="/#contact">
-                <Button size="sm" variant="outline" className="w-full gap-2">
-                  <Mail className="w-4 h-4" /> Contact
-                </Button>
+              </Link>
+              <Link
+                className={cn(
+                  buttonVariants({
+                    variant: 'outline',
+                    size: 'sm',
+                  }),
+                  'w-full gap-2',
+                )}
+                href="/#contact"
+              >
+                <Mail className="w-4 h-4" /> Contact
               </Link>
             </div>
           </div>

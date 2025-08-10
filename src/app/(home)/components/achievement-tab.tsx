@@ -30,7 +30,7 @@ export default function AchievementTab() {
     <div>
       <div className="mx-auto">
         <div className="space-y-6">
-          {achievements.map((achievement) => (
+          {achievements.map(achievement => (
             <Card
               key={achievement.title}
               className="overflow-hidden border-l-4 border-l-primary shadow-md hover:shadow-lg transition-all duration-300"

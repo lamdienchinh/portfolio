@@ -69,8 +69,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-.container {
-  position: relative;
-  left: calc((100vw - 100%) / 2);
-}

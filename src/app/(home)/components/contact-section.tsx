@@ -127,7 +127,7 @@ export default function ContactSection() {
             <CardContent className="p-6">
               <h3 className="text-xl font-semibold mb-6">Send Me a Message</h3>
 
-              <AnimatePresence mode="wait">
+              <AnimatePresence>
                 {isSuccess ? (
                   <motion.div
                     key="success"

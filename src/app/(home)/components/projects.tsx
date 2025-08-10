@@ -17,12 +17,12 @@ import Image, { StaticImageData } from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 // UI Components
+import vbc4t from '@/assets/imgs/4t.png';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import vbc4t from "@/assets/imgs/4t.png"
 // Project Images
 import vbc_landing from '@/assets/imgs/vbc_landing.png';
 
@@ -152,7 +152,6 @@ const PROJECTS: Project[] = [
   },
 ];
 
-
 const CATEGORIES: Array<'All' | ProjectCategory> = [
   'All',
   'Web App',
@@ -216,9 +215,8 @@ const ProjectCard = ({
           <Image
             src={project.image}
             alt={project.title}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-t-lg transition-transform duration-700 group-hover:scale-110"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover rounded-t-lg transition-transform duration-700 group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="absolute top-4 right-4 z-10">
@@ -326,9 +324,8 @@ const ProjectDetailModal = ({
           <Image
             src={project.image}
             alt={project.title}
-            layout="fill"
-            objectFit="cover"
-            className="brightness-[0.85]"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="brightness-[0.85] object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
@@ -511,7 +508,7 @@ export default function Projects(): JSX.Element {
       : PROJECTS.filter(project => project.category.includes(activeCategory));
 
   return (
-    <div id="projects" className="container pt-24">
+    <section id="projects" className="container pt-24">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -562,7 +559,7 @@ export default function Projects(): JSX.Element {
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             {filteredProjects.length > 0 ? (
               filteredProjects.map(project => (
                 <ProjectCard
@@ -596,6 +593,6 @@ export default function Projects(): JSX.Element {
           />
         )}
       </AnimatePresence>
-    </div>
+    </section>
   );
 }

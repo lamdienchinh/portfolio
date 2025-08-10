@@ -30,7 +30,7 @@ export default function Skill() {
   return (
     <Marquee>
       {skills.map(skill => (
-        <div className="flex items-center gap-2 px-4 text-xl">
+        <div key={skill.label} className="flex items-center gap-2 px-4 text-xl">
           <div className="dark:bg-gray-400 rounded-full p-2">
             <Image src={skill.icon} alt={skill.label} className="h-10 w-10" />
           </div>

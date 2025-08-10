@@ -10,7 +10,6 @@ const lobster = Lobster({
   variable: '--font-lobster',
 });
 
-// Định nghĩa metadata cho trang
 export const metadata: Metadata = {
   title: 'Chinh',
   description: 'Welcome to Chinh Portfolio',
@@ -22,11 +21,11 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html>
+    <html suppressHydrationWarning>
       <body className={`${lobster.variable} font-sans`}>
         <Providers>
           <Header />
-          <main className="pt-[70px] pb-[15px]">{children}</main>
+          <main className="pt-[70px] pb-[15px] w-full">{children}</main>
         </Providers>
       </body>
     </html>
