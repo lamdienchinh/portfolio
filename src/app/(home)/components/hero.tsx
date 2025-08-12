@@ -54,7 +54,7 @@ export default function Hero() {
         >
           <div className="inline-flex items-center px-4 py-1.5 mb-6 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
             <span className="animate-pulse mr-2 text-primary">●</span>
-            Available for freelance work
+            Available for work
           </div>
 
           <div className="text-4xl sm:text-5xl lg:text-6xl font-bold my-6">
