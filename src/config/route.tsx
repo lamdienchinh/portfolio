@@ -4,6 +4,12 @@ export const routes = [
   {
     href: '/#about-me',
     label: 'About Me',
+    icon: <Briefcase className="h-4 w-4" />,
+    color: 'from-primary to-primary/70',
+  },
+  {
+    href: '/#experience',
+    label: 'Experience',
     icon: <Sparkles className="h-4 w-4" />,
     color: 'from-primary to-primary/70',
   },

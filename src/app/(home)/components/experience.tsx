@@ -1,204 +1,160 @@
 'use client';
-import vnb from '@/assets/imgs/vnb.png';
+
 import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+  containerVariants,
+  EXPERIENCES,
+  lineVariants,
+} from '@/consts/experiences';
 import { motion } from 'framer-motion';
-import { CalendarDays, ExternalLink, MapPin } from 'lucide-react';
-import Link from 'next/link';
+import { Calendar, ExternalLink, MapPin } from 'lucide-react';
 
-const experiences = [
-  {
-    year: '06/2023 - Present',
-    company: 'Vietnam Blockchain Joint Stock Company',
-    location: 'Ho Chi Minh City, Vietnam',
-    role: 'Frontend Developer',
-    logo: vnb,
-    website: 'https://vietnamblockchain.asia',
-    description:
-      'Developing and maintaining blockchain and web3 projects. Collaborating with cross-functional teams to address product requirements and resolve technical challenges.',
-    achievements: [
-      'Optimized website performance, reducing page load time by 40%',
-      'Developed key features such as workflow management, app notifications, and user management',
-      'Integrated interactive maps, QR code processing, SSO authentication, and GraphQL',
-      'Actively contributed to internal Tech Talks, sharing insights on new technologies',
-    ],
-    highlights: [
-      'React.js',
-      'Next.js',
-      'React Native',
-      'GraphQL',
-      'SSO Authentication',
-      'QR Code Processing',
-      'Tailwind CSS',
-      'Firebase',
-    ],
-  },
-];
-
-const Timeline = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    },
-  };
-
+export default function ExperienceTimeline() {
   return (
-    <section id="experience">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-sm uppercase tracking-wider text-primary font-semibold mb-2">
-              Work Experience
-            </h2>
-            <h1 className="text-4xl leading-relaxed md:text-5xl font-bold mb-4">
-              My Career Journey
-            </h1>
-            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              A look into my professional growth in software development,
-              working on diverse projects and technologies.
-            </p>
-          </motion.div>
-        </div>
+    <section id='experience' className="py-16 px-4">
+      <div className="max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-4xl font-bold text-primary mb-4">
+            Professional Experience
+          </h1>
+          <p className="text-lg text-bg-foreground max-w-2xl mx-auto">
+            A journey through my professional development and key achievements
+          </p>
+        </motion.div>
 
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          animate="visible"
           className="relative"
         >
-          {/* Timeline center line */}
-          <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary/80 via-primary/50 to-primary/20 rounded-full md:transform md:-translate-x-1/2" />
-
-          {experiences.map((exp, index) => (
+          {/* Timeline line */}
+          <div className="max-sm:hidden absolute left-8 top-0 w-0.5 bg-slate-200 h-full">
             <motion.div
-              key={exp.year}
-              variants={itemVariants}
-              className={`mb-16 md:mb-24 relative ${
-                index % 2 === 0
-                  ? 'md:pr-12 md:ml-auto md:mr-auto md:pl-0'
-                  : 'md:pl-12 md:ml-auto md:mr-auto md:pr-0'
-              } ml-12 md:w-1/2`}
+              variants={lineVariants}
+              className="w-full bg-secondary"
+            />
+          </div>
+
+          {EXPERIENCES.map((experience, index) => (
+            <motion.div
+              key={experience.id}
+              className="relative mb-12 last:mb-0"
             >
               {/* Timeline dot */}
-              <div className="absolute left-[-30px] md:left-auto md:right-[-20px] top-10 w-8 h-8 rounded-full bg-gradient-to-br from-primary to-blue-500 shadow-lg flex items-center justify-center z-10">
-                <div className="w-3 h-3 rounded-full bg-white dark:bg-gray-900"></div>
-              </div>
+              <div className="max-sm:hidden absolute top-4 left-6 w-4 h-4 bg-primary rounded-full border-4 border-primary shadow-lg z-10" />
 
-              {/* Year badge - positioned differently based on even/odd */}
-              <div
-                className={`absolute top-0 ${
-                  index % 2 === 0
-                    ? 'left-[-20px] md:left-auto md:right-[-120px]'
-                    : 'left-[-20px] md:left-[-120px]'
-                }`}
-              >
-                <Badge
-                  variant="outline"
-                  className="text-sm py-1 px-3 border-primary/30 bg-white dark:bg-gray-800 shadow-sm text-primary dark:text-primary font-medium"
-                >
-                  <CalendarDays className="w-3.5 h-3.5 mr-1.5" />
-                  {exp.year}
-                </Badge>
-              </div>
-
-              <Card className="border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800/50 backdrop-blur-sm shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 dark:bg-primary/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-
-                <CardHeader className="pb-2 relative">
-                  <div className="flex flex-col md:flex-row justify-between items-start gap-4">
-                    <div className="flex items-start gap-4">
-                      <div>
-                        <CardTitle className="text-xl font-bold mb-1 text-gray-800 dark:text-gray-100">
-                          {exp.company}
-                        </CardTitle>
-                        <CardDescription className="text-base font-medium text-gray-600 dark:text-gray-400">
-                          {exp.role}
-                        </CardDescription>
-                        <div className="flex items-center mt-1 text-sm text-gray-500 dark:text-gray-500">
-                          <MapPin className="w-3.5 h-3.5 mr-1" />
-                          {exp.location}
+              {/* Experience card */}
+              <div className="sm:ml-12 md:ml-20">
+                <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border-secondary backdrop-blur-sm">
+                  <CardContent className="p-6">
+                    <div className="flex flex-col md:flex-row items-start gap-4 mb-4">
+                      <motion.img
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ duration: 0.2 }}
+                        src={experience.logo.src}
+                        alt={`${experience.company} logo`}
+                        className="w-16 h-16 rounded-lg object-contain shadow-md bg-background"
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="text-xl font-bold text-primary">
+                            {experience.role}
+                          </h3>
+                          {experience.website && (
+                            <motion.a
+                              href={experience.website}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.95 }}
+                              className="text-blue-500 hover:text-blue-600 transition-colors"
+                            >
+                              <ExternalLink size={16} />
+                            </motion.a>
+                          )}
+                        </div>
+                        <h4 className="text-lg font-semibold mb-2">
+                          {experience.company}
+                        </h4>
+                        <div className="flex flex-wrap items-center gap-4 text-sm mb-3">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="text-primary" size={14} />
+                            <span>{experience.year}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <MapPin className="text-primary" size={14} />
+                            <span>{experience.location}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    {exp.website && (
-                      <Link
-                        href={exp.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-primary hover:text-primary/80 flex items-center gap-1 transition-colors"
-                      >
-                        Web <ExternalLink className="w-3.5 h-3.5" />
-                      </Link>
-                    )}
-                  </div>
-                </CardHeader>
+                    <p className="mb-4 leading-relaxed">
+                      {experience.description}
+                    </p>
 
-                <CardContent className="pt-4">
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    {exp.description}
-                  </p>
-
-                  {exp.achievements && exp.achievements.length > 0 && (
-                    <div className="mb-4 text-left">
-                      <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Achivements:
-                      </h4>
-                      <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                        {exp.achievements.map((achievement, i) => (
-                          <li key={i}>{achievement}</li>
+                    <div className="mb-4">
+                      <h5 className="font-semibold mb-2 text-primary">
+                        Key Achievements:
+                      </h5>
+                      <ul className="space-y-1">
+                        {experience.achievements.map((achievement, idx) => (
+                          <motion.li
+                            key={idx}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{
+                              delay: 0.8 + index * 0.3 + idx * 0.1,
+                            }}
+                            className="text-sm flex items-start gap-2"
+                          >
+                            <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
+                            {achievement}
+                          </motion.li>
                         ))}
                       </ul>
                     </div>
-                  )}
 
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {exp.highlights.map((highlight, i) => (
-                      <Badge
-                        key={i}
-                        variant="outline"
-                        className="border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 transition-all duration-300 hover:scale-105 hover:border-primary/50 hover:bg-primary/5"
-                      >
-                        {highlight}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+                    <div>
+                      <h5 className="font-semibold mb-2 text-primary">
+                        Technologies:
+                      </h5>
+                      <div className="flex flex-wrap gap-2">
+                        {experience.highlights.map((tech, idx) => (
+                          <motion.div
+                            key={tech}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{
+                              delay: 1 + index * 0.3 + idx * 0.05,
+                              duration: 0.3,
+                            }}
+                            whileHover={{ scale: 1.05 }}
+                          >
+                            <Badge
+                              variant="secondary"
+                              className="border-primary text-background-foreground bg-primary/20"
+                            >
+                              {tech}
+                            </Badge>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </motion.div>
           ))}
         </motion.div>
       </div>
     </section>
   );
-};
-
-export default Timeline;
+}

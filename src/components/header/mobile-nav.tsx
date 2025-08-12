@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, ChevronRight, Menu, Sparkles } from 'lucide-react';
+import { ArrowRight, Menu, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -87,30 +87,28 @@ export default function MobileNav() {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
               >
-                <GlowingBorder>
-                  <Link
-                    href={route.href}
-                    className="group flex items-center space-x-3 text-base font-medium p-3 rounded-lg hover:bg-primary/5 transition-colors"
-                    onClick={() => setIsOpen(false)}
+                <Link
+                  href={route.href}
+                  className="group flex items-center space-x-3 text-base font-medium p-3 rounded-lg hover:bg-primary/5 transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <motion.div
+                    className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center text-primary shadow-sm"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
                   >
+                    {route.icon}
+                  </motion.div>
+                  <span className="font-medium relative">
+                    {route.label}
                     <motion.div
-                      className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center text-primary shadow-sm"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      {route.icon}
-                    </motion.div>
-                    <span className="font-medium relative">
-                      {route.label}
-                      <motion.div
-                        className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r ${route.color} rounded-full`}
-                        initial={{ width: '0%' }}
-                        whileHover={{ width: '100%' }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    </span>
-                  </Link>
-                </GlowingBorder>
+                      className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r ${route.color} rounded-full`}
+                      initial={{ width: '0%' }}
+                      whileHover={{ width: '100%' }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </span>
+                </Link>
               </motion.div>
             ))}
 
