@@ -28,7 +28,6 @@ export default function ScrollToTop() {
         p-3 bg-primary text-white rounded-full
         shadow-lg hover:bg-primary/80
         transition-colors duration-300
-        focus:outline-none focus:ring-2 focus:ring-blue-400
       "
     >
       <ArrowUp size={24} />
