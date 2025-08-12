@@ -1,9 +1,7 @@
 import AboutMe from './components/about-me';
-import ContactSection from './components/contact-section';
-import Timeline from './components/experience';
-import Hero from './components/hero-section';
+import ContactSection from './components/contact';
+import Hero from './components/hero';
 import Projects from './components/projects';
-
 export default function Home() {
   return (
     <>
@@ -11,7 +9,7 @@ export default function Home() {
       <AboutMe />
       {/* <Timeline /> */}
       <Projects />
-      <ContactSection/>
+      <ContactSection />
     </>
   );
 }
