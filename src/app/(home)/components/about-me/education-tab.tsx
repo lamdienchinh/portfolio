@@ -2,19 +2,9 @@ import { Badge } from '@/components/ui/badge';
 import { motion } from 'motion/react';
 
 export default function EducationTab() {
-  const educationDetails = [
-    {
-      time: '2020 - 2024',
-      title: 'Bachelor of Computer Science',
-      institution: 'Ho Chi Minh City University of Technology',
-      description:
-        'Graduated with Honors (GPA: 3.7/4.0). Focused on software engineering with emphasis on web and mobile application development. Completed coursework in data structures, algorithms, and software architecture.',
-    },
-  ];
-
   return (
     <div className="space-y-8">
-      {educationDetails.map((edu, index) => (
+      {EDUCATION_DETAIL.map((edu, index) => (
         <motion.div
           key={index}
           initial={{ opacity: 0, y: 20 }}

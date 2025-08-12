@@ -1,36 +1,13 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { Award, Star, Trophy } from 'lucide-react';
-
-const achievements = [
-  {
-    title: 'City-level 5-Star Student Award',
-    year: '2024',
-    description:
-      'Recognition for excellence in academics, ethics, volunteer work, social activities, and physical fitness.',
-    icon: Star,
-  },
-  {
-    title: 'University 5-Star Student Award',
-    year: '2022',
-    description:
-      'Awarded for outstanding performance across multiple university assessment criteria.',
-    icon: Trophy,
-  },
-  {
-    title: 'Merit-based Scholarship',
-    year: '2020-2024',
-    count: '4',
-    description:
-      'Received four consecutive scholarships for academic excellence during university studies.',
-  },
-];
+import { ACHIEVEMENTS } from '@/consts/achievements';
+import { Award } from 'lucide-react';
 
 export default function AchievementTab() {
   return (
     <div>
       <div className="mx-auto">
         <div className="space-y-6">
-          {achievements.map(achievement => (
+          {ACHIEVEMENTS.map(achievement => (
             <Card
               key={achievement.title}
               className="overflow-hidden border-l-4 border-l-primary shadow-md hover:shadow-lg transition-all duration-300"

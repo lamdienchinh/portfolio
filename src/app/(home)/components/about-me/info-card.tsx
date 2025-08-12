@@ -15,7 +15,7 @@ const languages = [
   { name: 'English', level: 'Upper-Intermediate', percentage: 85 },
 ];
 
-export default function Info() {
+export default function InfoCard() {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}

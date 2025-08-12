@@ -1,37 +1,4 @@
-import { Bike, Book, Coffee, Cpu, Footprints, Music } from 'lucide-react';
-
-const interests = [
-  {
-    name: 'Technology',
-    icon: <Cpu className="w-6 h-6" />,
-    description: 'Latest gadgets and software',
-  },
-  {
-    name: 'Reading',
-    icon: <Book className="w-6 h-6" />,
-    description: 'Fiction and non-fiction books',
-  },
-  {
-    name: 'Travel',
-    icon: <Bike className="w-6 h-6" />,
-    description: 'Exploring new places',
-  },
-  {
-    name: 'Music',
-    icon: <Music className="w-6 h-6" />,
-    description: 'Creating and listening',
-  },
-  {
-    name: 'Cooking',
-    icon: <Coffee className="w-6 h-6" />,
-    description: 'Experimenting with flavors',
-  },
-  {
-    name: 'Running',
-    icon: <Footprints className="w-6 h-6" />,
-    description: 'Staying fit and active',
-  },
-];
+import { INTERESTS } from '@/consts/interests';
 
 export default function InterestTab() {
   return (
@@ -40,7 +7,7 @@ export default function InterestTab() {
         My Interests
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
-        {interests.map((interest, index) => (
+        {INTERESTS.map((interest, index) => (
           <div
             key={interest.name}
             className="relative group"
